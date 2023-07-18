@@ -4,27 +4,26 @@ import ContactForm from './ContactForm/ContactForm.js';
 import Filter from './Filter/Filter.js';
 import { nanoid } from 'nanoid';
 
+const initialContacts = [
+  { id: 'id-1', name: 'Jane Fox', number: '123-45-67' },
+  { id: 'id-2', name: 'Dmitro Kog', number: '123-45-68' },
+  { id: 'id-3', name: 'Alex Bolduin', number: '123-45-69' },
+  { id: 'id-4', name: 'Mark Tven', number: '123-45-70' },
+];
+
 class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Jane Fox', number: '123-45-67' },
-      { id: 'id-2', name: 'Dmitro Kog', number: '123-45-68' },
-      { id: 'id-3', name: 'Alex Bolduin', number: '123-45-69' },
-      { id: 'id-4', name: 'Mark Tven', number: '123-45-70' },
-    ],
+    contacts: [],
     filter: '',
   };
 
  componentDidMount() {
     const contacts = localStorage.getItem('contacts');
-    // console.log('contacts', contacts);
-    const parseContacts = JSON.parse(contacts) || [];
+    const parseContacts = JSON.parse(contacts) || initialContacts;
     this.setState({ contacts: parseContacts });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log('this.state', this.state);
-    // console.log('prevState', prevState);
     if (this.state.contacts !== prevState.contacts)  {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
